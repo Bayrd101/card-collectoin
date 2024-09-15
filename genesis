@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Collection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 2rem auto;
+        }
+
+        #uploadSection {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #uploadSection input[type="file"] {
+            padding: 10px;
+        }
+
+        #uploadSection button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 1rem;
+        }
+
+        #uploadSection button:hover {
+            background-color: #0056b3;
+        }
+
+        .collection {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 2rem;
+        }
+
+        .card {
+            width: 150px;
+            height: 200px;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            position: relative;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Card Collection</h1>
+    </header>
+
+    <div class="container">
+        <section id="uploadSection">
+            <h2>Upload Your Card Image</h2>
+            <input type="file" id="fileInput" accept="image/*">
+            <button onclick="uploadCard()">Upload</button>
+        </section>
+
+        <section id="collectionSection">
+            <h2>Your Collection</h2>
+            <div class="collection" id="collection"></div>
+        </section>
+    </div>
+
+    <script>
+        function uploadCard() {
+            const fileInput = document.getElementById('fileInput');
+            const collection = document.getElementById('collection');
+
+            if (fileInput.files && fileInput.files[0]) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    const cardImage = document.createElement('div');
+                    cardImage.classList.add('card');
+                    cardImage.innerHTML = `<img src="${e.target.result}" alt="Card Image">`;
+                    collection.appendChild(cardImage);
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+</body>
+</html>
